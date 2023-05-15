@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebLibraryApplication1.Models.Album>
+
+@{
+    ViewData["Title"] = "AlbumList";
+}
+
+<h1>Список альбомів</h1>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var album in Model)
+        {
+            <li><a href="@Url.Action("Details", "Albums", new { id = album.Id })">@album.Name</a> - @album.RecordingInfo</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Немає доступних альбомів.</p>
+}

@@ -1,0 +1,23 @@
+﻿@model WebLibraryApplication1.Models.Album
+
+@{
+    ViewData["Title"] = "Songs";
+}
+
+<h1>Пісні</h1>
+
+@if (Model.Songs.Any())
+{
+    <ul>
+        @foreach (var song in Model.Songs)
+        {
+            <li><a href="@Url.Action("Details", "Songs", new { id = song.Id })">@song.Name</a> - @song.Genre</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Пісень не знайдено.</p>
+}
+
+<a asp-action="Index" asp-controller="Albums">Повернутись до альбомів</a>

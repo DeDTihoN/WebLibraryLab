@@ -1,0 +1,38 @@
+﻿@model WebLibraryApplication1.Models.Playlist
+
+@{
+    ViewData["Title"] = "Playlist Details";
+}
+
+<h1>Плейліст: @Model.Name</h1>
+
+<p>Створено: @Model.DataOfCreation</p>
+
+<hr />
+
+<h2>Пісні:</h2>
+
+@if (Model.SongPlaylistRels.Count == 0)
+{
+    <p>Пісень не знайдено.</p>
+}
+else
+{
+    <ul>
+        @foreach (var songPlaylistRel in Model.SongPlaylistRels)
+        {
+            <li>
+                <a href="@Url.Action("Details", "Songs", new { id = songPlaylistRel.Song.Id })">@songPlaylistRel.Song.Name</a>
+                <form method="post" action="@Url.Action("RemoveSong", "Playlist")" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="playlistId" value="@Model.Id" />
+                    <input type="hidden" name="songId" value="@songPlaylistRel.Song.Id" />
+                    <button type="submit" class="btn btn-link text-danger">Видалити</button>
+                </form>
+            </li>
+        }
+    </ul>
+}
+
+<a href="@Url.Action("AddSong", "Playlist", new { playlistId = Model.Id })" class="btn btn-primary">Додати пісню</a>
+<a href="@Url.Action("Index", "Playlist")" class="btn btn-primary">Повернутись до списку</a>

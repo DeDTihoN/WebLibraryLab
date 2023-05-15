@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+<div class="text-center">
+    <h2>Explore the Library:</h2>
+    <ul class="list-unstyled">
+        <li>
+            <a href="@Url.Action("Index", "Albums")" class="btn btn-primary btn-lg">Альбоми</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Artists")" class="btn btn-primary btn-lg">Виконавці</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Songs")" class="btn btn-primary btn-lg">Пісні</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Users")" class="btn btn-primary btn-lg">Користувачі</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Login")" class="btn btn-primary btn-lg">Авторизація</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Playlist")" class="btn btn-primary btn-lg">Плейлісти</a>
+        </li>
+    </ul>
+</div>

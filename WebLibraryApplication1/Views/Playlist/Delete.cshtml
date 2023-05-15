@@ -1,0 +1,16 @@
+﻿@model WebLibraryApplication1.Models.Playlist
+
+@{
+    ViewData["Title"] = "Delete Playlist";
+}
+
+<h1>Видалити плейліст</h1>
+
+<p>Ви впевнені що хочете видалити плейліст "@Model.Name"?</p>
+
+<form asp-action="ConfirmDelete" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Видалити</button>
+    <a asp-action="Index" class="btn btn-secondary">Відмінити</a>
+</form>

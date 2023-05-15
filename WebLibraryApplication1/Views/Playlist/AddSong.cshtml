@@ -1,0 +1,55 @@
+﻿@model AddSongViewModel
+
+@{
+    ViewData["Title"] = "Add Song";
+}
+
+<h1>Додати пісню до плейліста</h1>
+
+<h3>Плейліст: @Model.Playlist.Name</h3>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.PlaylistId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.AlbumId, "Album")
+        @Html.DropDownListFor(m => m.AlbumId, Model.Albums, "Select an Album", new { @class = "form-control", id = "AlbumId" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SongId, "Song")
+        <div id="songDropdownList">
+            @Html.Partial("_SongDropdownList", new List<SelectListItem>())
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Додати пісню</button>
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#AlbumId").change(function () {
+                var albumId = $(this).val();
+                if (albumId) {
+                    $.ajax({
+                        url: "/Playlist/GetSongsByAlbum",
+                        type: "POST",
+                        data: { albumId: albumId },
+                        success: function (data) {
+                            $("#SongId").html(data);
+                        },
+                        error: function () {
+                            console.log("Error occurred while retrieving songs.");
+                        }
+                    });
+                }
+                else {
+                    $("#SongId").empty();
+                }
+            });
+        });
+    </script>
+}

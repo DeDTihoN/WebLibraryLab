@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebLibraryApplication1.Models.Artist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Виконавці</h1>
+
+<p>
+    <a asp-action="Create">Додати виконавця</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Опис</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a> |
+                <a asp-action="AlbumList" asp-route-id="@item.Id">Список альбомів</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="container">
+    <div id="chart1"></div>
+</div>
+@section scripts{
+    <script type "text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            $.get('/api/Chart/JsonData', function (JsonData) {
+                data = google.visualization.arrayToDataTable(JsonData, false);
+                var option = {
+                    title: "Співвідношення кількості альбомів та виконавців",
+                    width: 500,
+                    height: 400
+                };
+                chart = new google.visualization.PieChart(document.getElementById('chart1'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}

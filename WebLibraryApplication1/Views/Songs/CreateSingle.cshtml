@@ -1,0 +1,59 @@
+﻿@model WebLibraryApplication1.Models.Song
+
+@{
+    ViewData["Title"] = "Create Single";
+}
+
+<h1>Створити сінгл</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Genre">Genre:</label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Duration">Duration:</label>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.RecordingInfo">Recording Info:</label>
+        <input asp-for="Album.RecordingInfo" class="form-control" />
+        <span asp-validation-for="Album.RecordingInfo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Album.ArtistId">Artist:</label>
+        <select asp-for="Album.ArtistId" class="form-control">
+            <option value="">-- Select Artist --</option>
+            @foreach (var artist in ViewBag.Artists)
+            {
+                <option value="@artist.Id">@artist.Name</option>
+            }
+        </select>
+        <span asp-validation-for="Album.ArtistId" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Album.Name" />
+    <input type="hidden" asp-for="Album.Description" value="Сінгл" />
+    <input type="hidden" asp-for="Album.DateOfRelease" value="@DateTime.Now.ToShortDateString()" />
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Відмінити</a>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

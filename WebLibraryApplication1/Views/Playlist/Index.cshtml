@@ -1,0 +1,33 @@
+﻿@model WebLibraryApplication1.Models.User
+
+@{
+    ViewData["Title"] = "User Playlists";
+}
+
+<h1>Користувач: @Model.Name</h1>
+
+<p>Логін: @Model.Login</p>
+<p>Телефон: @Model.Phone</p>
+
+<hr />
+
+<h2>Плейлісти:</h2>
+
+<a href="/Playlist/Create" class="btn btn-primary">Створити новий плейліст</a>
+
+@if (Model.Playlists.Count == 0)
+{
+    <p>Плейлістів не знайдено.</p>
+}
+else
+{
+    <ul>
+        @foreach (var playlist in Model.Playlists)
+        {
+            <li>
+                <a href="@Url.Action("Details", "Playlist", new { id = playlist.Id })">@playlist.Name</a> - @playlist.DataOfCreation
+                <a href="/Playlist/Delete/@playlist.Id" class="btn btn-danger">Видалити</a>
+            </li>
+        }
+    </ul>
+}
